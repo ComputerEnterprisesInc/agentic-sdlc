@@ -85,7 +85,11 @@ async function handleLogin(e) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error?.message || 'Login failed');
+      // Handle validation errors
+      if (data.errors && data.errors.length > 0) {
+        throw new Error(data.errors[0].msg);
+      }
+      throw new Error(data.error || 'Login failed');
     }
 
     authToken = data.token;
@@ -120,7 +124,11 @@ async function handleRegister(e) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error?.message || 'Registration failed');
+      // Handle validation errors
+      if (data.errors && data.errors.length > 0) {
+        throw new Error(data.errors[0].msg);
+      }
+      throw new Error(data.error || 'Registration failed');
     }
 
     authToken = data.token;

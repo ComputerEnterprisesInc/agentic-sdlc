@@ -93,6 +93,30 @@ curl -X POST http://localhost:3000/api/auth/login `
   -d '{"email":"user@example.com","password":"password123"}'
 ```
 
+### Web Interface
+
+A user-friendly web interface is available to interact with the Task Management API:
+
+1. **Start the server** (if not already running):
+   ```powershell
+   npm start
+   ```
+
+2. **Open your browser**:
+   Navigate to `http://localhost:3000`
+
+3. **Features**:
+   - 🔐 User registration and login
+   - ✅ Create, edit, and delete tasks
+   - 📊 View task statistics
+   - ✨ Modern, responsive design
+   - 🎨 Clean and intuitive interface
+
+4. **Learn More**:
+   See [public/README.md](./public/README.md) for detailed usage guide
+
+The web interface provides a complete task management experience without needing to use curl or API tools.
+
 ## 🎓 What You'll Learn
 
 ### Level 1: Instruction Files (Autonomy: 10%)

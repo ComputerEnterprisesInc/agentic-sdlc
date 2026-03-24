@@ -6,14 +6,14 @@ const User = require('../models/User');
 
 // Validation middleware
 const validateRegistration = [
-  body('username').trim().notEmpty().withMessage('Username is required')
-    .isLength({ min: 3 }).withMessage('Username must be at least 3 characters'),
+  body('name').trim().notEmpty().withMessage('Name is required')
+    .isLength({ min: 3 }).withMessage('Name must be at least 3 characters'),
   body('email').trim().isEmail().withMessage('Valid email is required'),
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
 ];
 
 const validateLogin = [
-  body('username').trim().notEmpty().withMessage('Username is required'),
+  body('email').trim().isEmail().withMessage('Valid email is required'),
   body('password').notEmpty().withMessage('Password is required')
 ];
 
@@ -25,10 +25,10 @@ router.post('/register', validateRegistration, async (req, res, next) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { username, email, password } = req.body;
+    const { name, email, password } = req.body;
     
-    // Create user
-    const user = await User.create({ username, email, password });
+    // Create user (use name as username)
+    const user = await User.create({ username: name, email, password });
     
     // Generate JWT
     const token = jwt.sign(
@@ -41,7 +41,7 @@ router.post('/register', validateRegistration, async (req, res, next) => {
       message: 'User registered successfully',
       user: {
         id: user.id,
-        username: user.username,
+        name: user.username,
         email: user.email
       },
       token
@@ -62,10 +62,10 @@ router.post('/login', validateLogin, async (req, res, next) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     
-    // Find user
-    const user = await User.findByUsername(username);
+    // Find user by email
+    const user = await User.findByEmail(email);
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
@@ -87,7 +87,7 @@ router.post('/login', validateLogin, async (req, res, next) => {
       message: 'Login successful',
       user: {
         id: user.id,
-        username: user.username,
+        name: user.username,
         email: user.email
       },
       token
