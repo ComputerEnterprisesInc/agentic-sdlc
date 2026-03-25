@@ -6,13 +6,6 @@ handoffs:
     agent: agent
     prompt: Implement the suggested improvements
     send: true
-triggers:
-  - "code review"
-  - "review code"
-  - "check code"
-  - "code quality"
-  - "analyze code"
-model: claude-sonnet-4.5
 ---
 
 # Code Reviewer Agent

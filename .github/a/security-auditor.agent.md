@@ -6,13 +6,6 @@ handoffs:
     agent: agent
     prompt: Implement security fixes for identified vulnerabilities
     send: true
-triggers:
-  - "security audit"
-  - "security review"
-  - "vulnerability"
-  - "secure"
-  - "owasp"
-model: claude-sonnet-4.5
 ---
 
 # Security Auditor Agent
