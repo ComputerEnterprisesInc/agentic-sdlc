@@ -1,13 +1,6 @@
 ---
 agent: 'agent'
-title: Debug Application Issue
 description: Systematic approach to debugging and fixing issues in the application
-applyTo:
-  - "src/**/*.js"
-tags:
-  - debug
-  - troubleshooting
-  - fix
 ---
 
 # Debug Application Issue

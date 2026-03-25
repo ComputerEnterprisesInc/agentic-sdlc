@@ -1,13 +1,6 @@
 ---
 agent: 'agent'
-title: Security Review
 description: Performs comprehensive security audit of code changes
-applyTo:
-  - "**/*.js"
-tags:
-  - security
-  - audit
-  - review
 ---
 
 # Security Review

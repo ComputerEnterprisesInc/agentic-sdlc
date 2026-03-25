@@ -93,16 +93,15 @@ All task operations require authentication via JWT token stored in localStorage.
 ## Technical Details
 
 ### Files
-- **index.html** - Main HTML structure
-- **styles.css** - Complete styling and responsive design
+- **index.html** - Main HTML structure with Tailwind CSS
 - **app.js** - Frontend logic and API integration
 
 ### Technologies
 - **Vanilla JavaScript** - No framework dependencies
 - **Fetch API** - Modern HTTP requests
 - **LocalStorage** - Client-side session persistence
-- **CSS Grid/Flexbox** - Responsive layout
-- **CSS Gradients** - Modern visual design
+- **Tailwind CSS** - Utility-first CSS framework (via CDN)
+- **Responsive Design** - Mobile-first approach with Tailwind breakpoints
 
 ### Security Features
 - Password minimum length validation
@@ -120,24 +119,36 @@ const API_BASE_URL = 'http://your-api-url.com/api';
 ```
 
 ### Modify Colors
-Edit CSS variables in [styles.css](../public/styles.css):
-```css
-/* Change primary gradient */
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+Edit the Tailwind config in [index.html](../public/index.html):
+```javascript
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          500: '#667eea',  // Change to your primary color
+          600: '#764ba2',  // Change to your secondary color
+        }
+      }
+    }
+  }
+}
+```
 
-/* Change button colors */
-.btn-primary {
+Update custom gradients in the style tag:
+```css
+.gradient-bg {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 ```
 
 ### Adjust Layout
-Modify `.container` max-width in [styles.css](../public/styles.css):
-```css
-.container {
-  max-width: 900px; /* Change to your preferred width */
-}
-```
+All layout is controlled by Tailwind utility classes in the HTML. For example:
+- `max-w-4xl` - Controls max container width
+- `px-5 py-8` - Controls padding
+- `gap-3` - Controls spacing between elements
+
+See the [Tailwind CSS Skill](../.github/s/tailwind-css/SKILL.md) for comprehensive styling guidance.
 
 ## Browser Support
 

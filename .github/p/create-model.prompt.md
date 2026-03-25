@@ -1,13 +1,6 @@
 ---
 agent: 'agent'
-title: Create Data Model
 description: Creates a complete data model class with CRUD methods and validation
-applyTo:
-  - "src/models/**/*.js"
-tags:
-  - model
-  - database
-  - crud
 ---
 
 # Create Data Model

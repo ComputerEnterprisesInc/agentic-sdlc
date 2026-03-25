@@ -1,19 +1,6 @@
 ---
 name: error-handling
 description: Expert in comprehensive error handling, error responses, logging, and debugging strategies. Use this skill for implementing robust error handling, creating custom errors, and debugging application issues.
-triggers:
-  - "error handling"
-  - "exception handling"
-  - "try catch"
-  - "error response"
-  - "error logging"
-  - "debugging"
-  - "fix error"
-  - "handle errors"
-applyTo:
-  - "src/**/*.js"
-  - "**/*middleware*.js"
-  - "**/*error*.js"
 ---
 
 # Error Handling Skill

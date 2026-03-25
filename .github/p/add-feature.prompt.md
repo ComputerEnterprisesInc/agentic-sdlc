@@ -1,13 +1,6 @@
 ---
 agent: 'agent'
-title: Add Feature
 description: Add a new feature to the application with full implementation
-applyTo:
-  - "src/**/*.js"
-tags:
-  - feature
-  - enhancement
-  - development
 ---
 
 # Add New Feature

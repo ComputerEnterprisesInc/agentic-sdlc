@@ -1,18 +1,6 @@
 ---
 name: database-migration
 description: Expert in database schema design, migrations, and data integrity. Use when creating/modifying database schemas, writing migrations, or ensuring data consistency.
-triggers:
-  - "database schema"
-  - "create table"
-  - "alter table"
-  - "migration"
-  - "database design"
-  - "sql schema"
-applyTo:
-  - "**/*database*.js"
-  - "**/*migration*.js"
-  - "**/*schema*.sql"
-  - "src/utils/initDatabase.js"
 ---
 
 # Database Migration Skill

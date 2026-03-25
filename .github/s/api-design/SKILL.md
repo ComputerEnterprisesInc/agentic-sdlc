@@ -1,17 +1,6 @@
 ---
 name: api-design
 description: Expert in RESTful API design, endpoint structure, HTTP methods, status codes, and API best practices. Use this skill when designing new APIs, reviewing endpoint structure, or ensuring REST compliance.
-triggers:
-  - "design api"
-  - "rest api"
-  - "api structure"
-  - "endpoint design"
-  - "http methods"
-  - "api best practices"
-applyTo:
-  - "src/api/**/*.js"
-  - "**/*router*.js"
-  - "**/*routes*.js"
 ---
 
 # API Design Skill

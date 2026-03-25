@@ -1,13 +1,6 @@
 ---
 agent: 'agent'
-title: Refactor Code
 description: Refactor existing code to improve quality, maintainability, and follow best practices
-applyTo:
-  - "src/**/*.js"
-tags:
-  - refactor
-  - code-quality
-  - improvement
 ---
 
 # Refactor Code

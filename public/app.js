@@ -23,12 +23,16 @@ function initializeApp() {
 
 // Screen Management
 function showAuthScreen() {
-  document.getElementById('auth-screen').classList.add('active');
+  document.getElementById('auth-screen').classList.add('active', 'flex');
+  document.getElementById('auth-screen').classList.remove('hidden');
+  document.getElementById('tasks-screen').classList.add('hidden');
   document.getElementById('tasks-screen').classList.remove('active');
 }
 
 function showTasksScreen() {
-  document.getElementById('auth-screen').classList.remove('active');
+  document.getElementById('auth-screen').classList.remove('active', 'flex');
+  document.getElementById('auth-screen').classList.add('hidden');
+  document.getElementById('tasks-screen').classList.remove('hidden');
   document.getElementById('tasks-screen').classList.add('active');
   document.getElementById('user-name').textContent = currentUser?.name || 'User';
 }
@@ -38,13 +42,17 @@ function setupEventListeners() {
   // Auth form toggles
   document.getElementById('show-register').addEventListener('click', (e) => {
     e.preventDefault();
+    document.getElementById('login-form').classList.add('hidden');
     document.getElementById('login-form').classList.remove('active');
+    document.getElementById('register-form').classList.remove('hidden');
     document.getElementById('register-form').classList.add('active');
   });
 
   document.getElementById('show-login').addEventListener('click', (e) => {
     e.preventDefault();
+    document.getElementById('register-form').classList.add('hidden');
     document.getElementById('register-form').classList.remove('active');
+    document.getElementById('login-form').classList.remove('hidden');
     document.getElementById('login-form').classList.add('active');
   });
 
@@ -328,27 +336,33 @@ function renderTasks() {
   tasksList.style.display = 'flex';
   emptyState.style.display = 'none';
 
-  // Render tasks
+  // Render tasks with Tailwind classes
   tasksList.innerHTML = tasks.map(task => `
-    <div class="task-card ${task.status === 'completed' ? 'completed' : ''}">
-      <div class="task-header">
-        <h3 class="task-title">${escapeHtml(task.title)}</h3>
-        <span class="task-status ${task.status}">${task.status}</span>
+    <div class="bg-gray-50 rounded-lg border-2 transition-all p-4 ${task.status === 'completed' ? 'border-green-300 opacity-70 bg-green-50' : 'border-gray-200 hover:border-purple-300 hover:shadow-md'}">
+      <div class="flex items-start justify-between mb-3">
+        <h3 class="text-lg font-semibold flex-1 mr-2 ${task.status === 'completed' ? 'line-through text-gray-500' : 'text-gray-900'}">
+          ${escapeHtml(task.title)}
+        </h3>
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase ${task.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}">
+          ${task.status}
+        </span>
       </div>
-      ${task.description ? `<p class="task-description">${escapeHtml(task.description)}</p>` : ''}
-      <div class="task-actions">
-        <button class="btn btn-small btn-primary" onclick="toggleTaskStatus(${task.id})">
-          ${task.status === 'completed' ? 'Mark Pending' : 'Complete'}
-        </button>
-        <button class="btn btn-small btn-secondary" onclick="openEditModal(${task.id})">
-          Edit
-        </button>
-        <button class="btn btn-small btn-danger" onclick="deleteTask(${task.id})">
-          Delete
-        </button>
-      </div>
-      <div class="task-date">
-        Created: ${formatDate(task.created_at)}
+      ${task.description ? `<p class="text-gray-600 text-sm mb-4 leading-relaxed">${escapeHtml(task.description)}</p>` : ''}
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+        <span class="text-xs text-gray-500">
+          Created: ${formatDate(task.created_at)}
+        </span>
+        <div class="flex gap-2 w-full sm:w-auto">
+          <button class="flex-1 sm:flex-none px-3 py-1.5 text-xs bg-green-500 text-white rounded hover:bg-green-600 transition-colors font-medium" onclick="toggleTaskStatus(${task.id})">
+            ${task.status === 'completed' ? 'Mark Pending' : 'Complete'}
+          </button>
+          <button class="flex-1 sm:flex-none px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors font-medium" onclick="openEditModal(${task.id})">
+            Edit
+          </button>
+          <button class="flex-1 sm:flex-none px-3 py-1.5 text-xs bg-red-500 text-white rounded hover:bg-red-600 transition-colors font-medium" onclick="deleteTask(${task.id})">
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   `).join('');
@@ -364,21 +378,48 @@ function openEditModal(id) {
   document.getElementById('edit-task-description').value = task.description || '';
   document.getElementById('edit-task-status').value = task.status;
 
-  document.getElementById('edit-modal').classList.add('active');
+  const modal = document.getElementById('edit-modal');
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
 }
 
 function closeModal() {
-  document.getElementById('edit-modal').classList.remove('active');
+  const modal = document.getElementById('edit-modal');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
 }
 
 // Toast Notifications
 function showToast(message, type = 'success') {
   const toast = document.getElementById('toast');
   toast.textContent = message;
-  toast.className = `toast ${type} show`;
+  toast.classList.remove('hidden');
+  
+  // Set color based on type
+  if (type === 'success') {
+    toast.classList.remove('bg-red-500');
+    toast.classList.add('bg-green-500');
+  } else if (type === 'error') {
+    toast.classList.remove('bg-green-500');
+    toast.classList.add('bg-red-500');
+  } else {
+    toast.classList.remove('bg-green-500', 'bg-red-500');
+    toast.classList.add('bg-gray-800');
+  }
 
+  // Animate in
   setTimeout(() => {
-    toast.className = 'toast';
+    toast.classList.remove('opacity-0', 'translate-y-5');
+    toast.classList.add('opacity-100', 'translate-y-0');
+  }, 10);
+
+  // Animate out
+  setTimeout(() => {
+    toast.classList.add('opacity-0', 'translate-y-5');
+    toast.classList.remove('opacity-100', 'translate-y-0');
+    setTimeout(() => {
+      toast.classList.add('hidden');
+    }, 300);
   }, 3000);
 }
 

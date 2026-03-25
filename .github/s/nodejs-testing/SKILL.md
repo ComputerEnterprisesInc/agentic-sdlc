@@ -1,19 +1,6 @@
 ---
 name: nodejs-testing
 description: Expert in Node.js testing with Jest, including unit tests, integration tests, mocking, and test-driven development. Use for writing tests, test strategy, and ensuring code quality.
-triggers:
-  - "write test"
-  - "unit test"
-  - "integration test"
-  - "jest"
-  - "test coverage"
-  - "mock"
-  - "test strategy"
-  - "tdd"
-applyTo:
-  - "**/*.test.js"
-  - "**/*.spec.js"
-  - "tests/**/*.js"
 ---
 
 # Node.js Testing Skill

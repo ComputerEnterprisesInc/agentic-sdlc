@@ -1,7 +1,4 @@
----
-applyTo: "**/*.js"
-description: Global instructions for the Task Management API codebase covering architecture, coding standards, and conventions.
----
+
 
 # Task Management API - Instructions for GitHub Copilot
 
@@ -72,35 +69,6 @@ src/
   { "errors": [{ "field": "email", "message": "Invalid email" }] }
   ```
 
-### Authentication
-- All protected routes must use the `authenticate` middleware
-- JWT tokens are passed in the `Authorization` header as `Bearer <token>`
-- Token payload contains: `{ id, username }`
-- Always check resource ownership before modification:
-  ```javascript
-  if (resource.user_id !== req.user.id) {
-    return res.status(403).json({ error: 'Access denied' });
-  }
-  ```
-
-### Database Queries
-- Use parameterized queries to prevent SQL injection
-- Always use `COALESCE` for optional updates
-- Include timestamps (created_at, updated_at) for all records
-- Example:
-  ```javascript
-  db.run('SELECT * FROM tasks WHERE id = ?', [id], callback);
-  ```
-
-### Validation
-- Use express-validator for all input validation
-- Validate on these routes: POST, PUT
-- Common validations:
-  - `notEmpty()` - required fields
-  - `isEmail()` - email format
-  - `isLength()` - string length
-  - `isIn()` - enum values
-
 ## API Endpoints
 
 ### Authentication
@@ -123,21 +91,7 @@ src/
 - `PUT /api/users/:id` - Update user
 - `DELETE /api/users/:id` - Delete user
 
-## Testing
 
-When creating tests:
-- Use Jest and Supertest
-- Test happy paths AND error cases
-- Mock database calls
-- Test authentication middleware
-- Example test structure:
-  ```javascript
-  describe('GET /api/tasks', () => {
-    it('should return all tasks for authenticated user', async () => {
-      // Test implementation
-    });
-  });
-  ```
 
 ## Environment Variables
 
